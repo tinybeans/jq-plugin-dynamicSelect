@@ -14,25 +14,49 @@
 (function($){
     $.fn.dynamicSelect = function(options){
         var op = $.extend({}, $.fn.dynamicSelect.defaults, options);
-
+console.log(typeof op.text);
         return this.each(function(){
             var $self = $(this);
-            var $selfVal = $self.val() ? $self.val() : '';
-            var items = op.text.split(',');
-            items.unshift($selfVal);
-
+            var selfVal = $self.val() ? $self.val() : '';
             if (!op.debug) {
                 $self.hide();
             }
+
             var options = [];
             var selected = '';
-            for (var i = 0, n = items.length; i < n; i++) {
-                if ($selfVal == items[i]) {
-                    selected = ' selected="selected"';
-                } else {
-                    selected = '';
+            var exist = false;
+            if (typeof op.text == 'string') {
+                var items = op.text.split(',');
+                if ($.inArray(selfVal, items) < 0) {
+                    items.unshift(selfVal);
                 }
-                options.push('<option value="' + items[i] + '"' + selected + '>' + items[i] + '</option>');
+                for (var i = 0, n = items.length; i < n; i++) {
+                    if (selfVal == items[i]) {
+                        selected = ' selected="selected"';
+                    } else {
+                        selected = '';
+                    }
+                    options.push('<option value="' + items[i] + '"' + selected + '>' + items[i] + '</option>');
+                }
+            } else if (typeof op.text == 'object') {
+                for (var key in op.text) {
+                    options.push('<optgroup label="' + key + '">');
+                    for (var i = 0, n = op.text[key].length; i < n; i++) {
+                        console.log(selfVal + ',' + op.text[key][i]);
+                        console.log(selfVal == op.text[key][i]);
+                        if (selfVal == op.text[key][i]) {
+                            selected = ' selected="selected"';
+                            exist = true;
+                        } else {
+                            selected = '';
+                        }
+                        options.push('<option value="' + op.text[key][i] + '"' + selected + '>' + op.text[key][i] + '</option>');
+                    }
+                    options.push('</optgroup>');
+                }
+                if (selfVal && !exist) {
+                    options.unshift('<optgroup label="' + op.initGroupName + '"><option value="' + selfVal + '">' + selfVal + '</option></optgroup>');
+                }
             }
             var select = [
                 '<select class="dynamic_select">',
@@ -60,6 +84,7 @@
         debug: false,
         text: '', // カンマ区切りの文字列
         addText: '項目を追加する',
-        promptMsg: '追加する項目名を入力'
+        promptMsg: '追加する項目名を入力',
+        initGroupName: '選択中アイテム'
     };
 })(jQuery);

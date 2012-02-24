@@ -14,7 +14,11 @@
 
 <h2>Debug Mode</h2>
 
-<p><input type="text" name="sample2" id="sample2" /></p>
+<p><input type="text" name="sample2" id="sample2" value="クライフ" /></p>
+
+<h2>Optgroup Mode</h2>
+
+<p><input type="text" name="sample3" id="sample3" value="松岡修造" /></p>
 
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="jquery.dynamicSelect.js"></script>
@@ -26,6 +30,14 @@
     $('#sample2').dynamicSelect({
         debug: true,
         text: 'バッジョ,クライフ,ジーコ,グアルディオラ,ピルロ,メッシ'
+    });
+    $('#sample3').dynamicSelect({
+        debug: true,
+        text: {
+            'サッカー': ['バッジョ','クライフ','ジーコ','グアルディオラ','ピルロ','メッシ'],
+            'テニス': ['エドバーグ','サンプラス','アガシ','レンドル','マッケンロー','松岡修造'],
+            '食べ物': ['チョコ','ナッツ','果物','アイスクリーム']
+        }
     });
 })(jQuery);
 </script>
