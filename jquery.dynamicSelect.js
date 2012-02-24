@@ -14,7 +14,6 @@
 (function($){
     $.fn.dynamicSelect = function(options){
         var op = $.extend({}, $.fn.dynamicSelect.defaults, options);
-console.log(typeof op.text);
         return this.each(function(){
             var $self = $(this);
             var selfVal = $self.val() ? $self.val() : '';
@@ -42,8 +41,6 @@ console.log(typeof op.text);
                 for (var key in op.text) {
                     options.push('<optgroup label="' + key + '">');
                     for (var i = 0, n = op.text[key].length; i < n; i++) {
-                        console.log(selfVal + ',' + op.text[key][i]);
-                        console.log(selfVal == op.text[key][i]);
                         if (selfVal == op.text[key][i]) {
                             selected = ' selected="selected"';
                             exist = true;
