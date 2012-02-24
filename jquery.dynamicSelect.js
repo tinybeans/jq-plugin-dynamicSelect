@@ -15,7 +15,7 @@
     $.fn.dynamicSelect = function(options){
         var op = $.extend({}, $.fn.dynamicSelect.defaults, options);
 
-        return this.each(function(idx){
+        return this.each(function(){
             var $self = $(this);
             var $selfVal = $self.val() ? $self.val() : '';
             var items = op.text.split(',');
@@ -35,14 +35,12 @@
                 options.push('<option value="' + items[i] + '"' + selected + '>' + items[i] + '</option>');
             }
             var select = [
-                '<select class="dynamic_select" id="dynamic_select_' + idx + '">',
+                '<select class="dynamic_select">',
                     options.join(''),
                     '<option value="_add_">' + op.addText + '</option>',
                 '</select>'
             ];
-            $self.after(select.join(''));
-
-            $('#dynamic_select_' + idx).change(function(){
+            var $select = $(select.join('')).change(function(){
                 if ($(this).val() === '_add_') {
                     var $option = $(this).find('option');
                     var size = $option.size();
@@ -53,6 +51,9 @@
                     $self.val($(this).val());
                 }
             });
+;
+            $self.after($select);
+
         });
     };    
     $.fn.dynamicSelect.defaults = {

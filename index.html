@@ -8,7 +8,26 @@
 
 <h1>jQuery Dynamic Select Box</h1>
 
+<h2>Normal</h2>
+
+<p><input type="text" name="sample" id="sample" /></p>
+
+<h2>Debug Mode</h2>
+
+<p><input type="text" name="sample2" id="sample2" /></p>
+
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="jquery.dynamicSelect.js"></script>
+<script type="text/javascript">
+(function($){
+    $('#sample').dynamicSelect({
+        text: 'バッジョ,クライフ,ジーコ,グアルディオラ,ピルロ,メッシ'
+    });
+    $('#sample2').dynamicSelect({
+        debug: true,
+        text: 'バッジョ,クライフ,ジーコ,グアルディオラ,ピルロ,メッシ'
+    });
+})(jQuery);
+</script>
 </body>
 </html>
