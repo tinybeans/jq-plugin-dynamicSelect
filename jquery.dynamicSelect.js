@@ -7,8 +7,8 @@
  * http://sourceforge.jp/projects/opensource/wiki/licenses%2FMIT_license
  *
  * Since:   2012-02-24
- * Update:  2012-02-24
- * version: 0.1
+ * Update:  2012-03-01
+ * version: 0.2
  * 
  */
 (function($){
