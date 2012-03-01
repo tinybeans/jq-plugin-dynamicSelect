@@ -26,28 +26,30 @@
             var exist = false;
             if (typeof op.text == 'string') {
                 var items = op.text.split(',');
-                if ($.inArray(selfVal, items) < 0) {
+                if (!op.separateMode && $.inArray(selfVal, items) < 0) {
                     items.unshift(selfVal);
                 }
                 for (var i = 0, n = items.length; i < n; i++) {
-                    if (selfVal == items[i]) {
+                    var attr = separate(items[i]);
+                    if (selfVal == attr[0]) {
                         selected = ' selected="selected"';
                     } else {
                         selected = '';
                     }
-                    options.push('<option value="' + items[i] + '"' + selected + '>' + items[i] + '</option>');
+                    options.push('<option value="' + attr[0] + '"' + selected + '>' + attr[1] + '</option>');
                 }
             } else if (typeof op.text == 'object') {
                 for (var key in op.text) {
                     options.push('<optgroup label="' + key + '">');
                     for (var i = 0, n = op.text[key].length; i < n; i++) {
-                        if (selfVal == op.text[key][i]) {
+                        var attr = separate(op.text[key][i]);
+                        if (selfVal == attr[0]) {
                             selected = ' selected="selected"';
                             exist = true;
                         } else {
                             selected = '';
                         }
-                        options.push('<option value="' + op.text[key][i] + '"' + selected + '>' + op.text[key][i] + '</option>');
+                        options.push('<option value="' + attr[0] + '"' + selected + '>' + attr[1] + '</option>');
                     }
                     options.push('</optgroup>');
                 }
@@ -72,16 +74,30 @@
                     $self.val($(this).val());
                 }
             });
-;
+            if (op.separateMode) {
+                $select.find('option').last().remove();
+            }
             $self.after($select);
 
+            function separate (str) {
+                var array = [];
+                if (str.match(/([^|]+)\|([^|]+)/)) {
+                    array[0] = RegExp.$1;
+                    array[1] = RegExp.$2;
+                } else {
+                    array[0] = str;
+                    array[1] = str;
+                }
+                return array;
+            }
         });
     };    
     $.fn.dynamicSelect.defaults = {
         debug: false,
-        text: '', // カンマ区切りの文字列
+        text: '', // カンマ区切りの文字列か連想配列と配列の入れ子。value|labelと分けることも可能（要separateMode: true）。
         addText: '項目を追加する',
         promptMsg: '追加する項目名を入力',
-        initGroupName: '選択中アイテム'
+        initGroupName: '選択中アイテム',
+        separateMode: false
     };
 })(jQuery);

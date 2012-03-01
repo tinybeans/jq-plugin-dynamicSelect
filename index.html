@@ -14,11 +14,13 @@
 
 <h2>Debug Mode</h2>
 
-<p><input type="text" name="sample2" id="sample2" value="クライフ" /></p>
+<p><input type="text" name="sample2" id="sample2" value="バッジョ" /></p>
+<p><input type="text" name="sample2-1" id="sample2-1" value="Pep" /></p>
 
 <h2>Optgroup Mode</h2>
 
-<p><input type="text" name="sample3" id="sample3" value="松岡修造" /></p>
+<p><input type="text" name="sample3" id="sample3" value="エドバーグ" /></p>
+<p><input type="text" name="sample3-1" id="sample3-1" value="熱い" /></p>
 
 <script type="text/javascript" src="jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="jquery.dynamicSelect.js"></script>
@@ -31,6 +33,11 @@
         debug: true,
         text: 'バッジョ,クライフ,ジーコ,グアルディオラ,ピルロ,メッシ'
     });
+    $('#sample2-1').dynamicSelect({
+        debug: true,
+        text: 'Baggio|バッジョ,Cruijff|クライフ,Zico|ジーコ,Pep|グアルディオラ,Pirlo|ピルロ,Messi|メッシ',
+        separateMode: true
+    });
     $('#sample3').dynamicSelect({
         debug: true,
         text: {
@@ -38,6 +45,15 @@
             'テニス': ['エドバーグ','サンプラス','アガシ','レンドル','マッケンロー','松岡修造'],
             '食べ物': ['チョコ','ナッツ','果物','アイスクリーム']
         }
+    });
+    $('#sample3-1').dynamicSelect({
+        debug: true,
+        text: {
+            'サッカー': ['Baggio|バッジョ','Cruijff|クライフ','Zico|ジーコ','Pep|グアルディオラ','Pirlo|ピルロ','Messi|メッシ'],
+            'テニス': ['ステファン|エドバーグ','ピート|サンプラス','アンドレ|アガシ','イワン|レンドル','ジョン|マッケンロー','熱い|松岡修造'],
+            '食べ物': ['チョコ','ナッツ','果物','アイスクリーム']
+        },
+        separateMode: true
     });
 })(jQuery);
 </script>
